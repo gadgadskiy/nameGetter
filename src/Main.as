@@ -34,7 +34,6 @@ package {
 
 		private function addListeners():void {
 			inputFileParser.addEventListener(Event.CHANGE, changeStatusHandler);
-			inputFileParser.addEventListener(Event.COMPLETE, completeParsingHandler);
 			loadFileBtn.addEventListener(MouseEvent.CLICK, clickLoadFileBtnHandler);
 		}
 
@@ -44,11 +43,7 @@ package {
 
 		private function changeStatusHandler(event:Event):void {
 			statusText.text = inputFileParser.status;
-		}
-
-		private function completeParsingHandler(event:Event):void {
 			resultText.text = inputFileParser.result;
-			statusText.text = inputFileParser.status;
 		}
 	}
 }

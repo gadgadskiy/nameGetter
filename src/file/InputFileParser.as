@@ -20,6 +20,7 @@ import flash.events.Event;
 		public function InputFileParser() {}
 
 		public function startProcessing():void {
+			_result = "";
 			inputFile = new File();
 			inputFile.addEventListener(Event.SELECT, selectInputFileHandler, false, 0, true);
 			inputFile.browseForOpen("Please, select file with ids", [new FileFilter("Documents", "*.txt")]);
@@ -108,13 +109,11 @@ import flash.events.Event;
 			currentCount++;
 			if (currentCount >= totalCount) {
 				createResultString();
-				_status = "Complete!";
-				dispatchEvent(new Event(Event.COMPLETE));
+				updateStatus("Complete!");
 			}
 		}
 
 		private function createResultString():void {
-			_result = "";
 			for each (var user:User in users) {
 				_result += user.data + DELIMITER_OUTPUT;
 			}

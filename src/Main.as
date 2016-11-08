@@ -5,8 +5,6 @@ import flash.events.Event;
 import flash.net.URLLoader;
 import flash.net.URLRequest;
 import flash.text.TextField;
-import flash.text.TextFormat;
-import flash.text.TextFormatAlign;
 import flash.utils.ByteArray;
 
 import graphics.GraphicUtils;

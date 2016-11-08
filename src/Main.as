@@ -9,6 +9,8 @@ import flash.text.TextFormat;
 import flash.text.TextFormatAlign;
 import flash.utils.ByteArray;
 
+import graphics.GraphicUtils;
+
 public class Main extends Sprite {
 		private var loadFileBtn:MovieClip;
 		private var saveFileBtn:MovieClip;
@@ -21,53 +23,17 @@ public class Main extends Sprite {
 		}
 
 		private function fillElements():void {
-			loadFileBtn = new MovieClip();
-			loadFileBtn.mouseChildren = false;
-			loadFileBtn.graphics.beginFill(0x3553FF);
-			loadFileBtn.graphics.drawRect(0, 0, 100, 20);
-			loadFileBtn.graphics.endFill();
-			loadFileBtn.x = loadFileBtn.y = 5;
-			loadFileBtn.addChild(createBtnLabel("Load file"));
-			loadFileBtn.buttonMode = true;
+			loadFileBtn = GraphicUtils.createBtn("Load file", 5, 5);
 			addChild(loadFileBtn);
 
-			saveFileBtn = new MovieClip();
-			saveFileBtn.mouseChildren = false;
-			saveFileBtn.graphics.beginFill(0x3553FF);
-			saveFileBtn.graphics.drawRect(0, 0, 100, 20);
-			saveFileBtn.graphics.endFill();
-			saveFileBtn.x = 5;
-			saveFileBtn.y = 350;
-			saveFileBtn.addChild(createBtnLabel("Save to file"));
-			saveFileBtn.buttonMode = true;
+			saveFileBtn = GraphicUtils.createBtn("Save to file", 5, 350);
 			addChild(saveFileBtn);
 
-			statusText = new TextField();
-			statusText.defaultTextFormat = new TextFormat("Arial", null, 0x000000, false, false, false, null, null, TextFormatAlign.LEFT);
-			statusText.x = 115;
-			statusText.y = 5;
-			statusText.width = 200;
-			statusText.multiline = false;
-			statusText.text = "Please, select file for parsing";
-			statusText.selectable = false;
+			statusText = GraphicUtils.createTextField("Please, select file for parsing", 115, 5, 200, 20, false, false, false);
 			addChild(statusText);
 
-			resultText = new TextField();
-			statusText.defaultTextFormat = new TextFormat("Arial", null, 0x000000, false, false, false, null, null, TextFormatAlign.LEFT);
-			resultText.x = 5;
-			resultText.y = 30;
-			resultText.width = 490;
-			resultText.height = 314;
-			resultText.border = true;
-			resultText.multiline = true;
+			resultText = GraphicUtils.createTextField("", 5, 30, 490, 315, true, true, true);
 			addChild(resultText);
-		}
-
-		private function createBtnLabel(label:String):TextField {
-			var field:TextField = new TextField();
-			field.defaultTextFormat = new TextFormat("Arial", null, 0xFFFFFF, true, false, false, null, null, TextFormatAlign.CENTER);
-			field.text = label;
-			return field;
 		}
 
 		private function loadPage():void {

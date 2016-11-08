@@ -13,7 +13,7 @@ public class GraphicUtils {
 			var btn:MovieClip = new MovieClip();
 			btn.mouseChildren = false;
 			btn.graphics.beginFill(0x3553FF);
-			btn.graphics.drawRect(0, 0, 100, 20);
+			btn.graphics.drawRect(0, 0, 105, 20);
 			btn.graphics.endFill();
 			btn.x = x;
 			btn.y = y;
@@ -25,6 +25,7 @@ public class GraphicUtils {
 		private static function createBtnLabel(label:String):TextField {
 			var field:TextField = new TextField();
 			field.defaultTextFormat = new TextFormat("Arial", null, 0xFFFFFF, true, false, false, null, null, TextFormatAlign.CENTER);
+			field.width = 105;
 			field.text = label;
 			return field;
 		}

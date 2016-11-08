@@ -11,6 +11,10 @@ public class OutputFileParser extends BaseFileParser{
 		public function OutputFileParser() {}
 
 		public function startProcessing(result:String):void {
+			if (!result || result == "") {
+				updateStatus("Nothing to save!");
+				return;
+			}
 			this.result = result;
 			outputFile = new File();
 			outputFile.addEventListener(Event.SELECT, selectOutputFileHandler, false, 0, true);

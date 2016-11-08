@@ -6,15 +6,17 @@ import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
-	import flash.text.TextField;
+import flash.system.System;
+import flash.text.TextField;
 
 	import graphics.GraphicUtils;
 
 	public class Main extends Sprite {
 		private var loadFileBtn:MovieClip;
 		private var saveFileBtn:MovieClip;
-		private var statusText:TextField;
-		private var resultText:TextField;
+		private var copyBtn:MovieClip;
+		private var statusTextField:TextField;
+		private var resultTextField:TextField;
 		private var inputFileParser:InputFileParser = new InputFileParser();
 		private var outputFileParser:OutputFileParser = new OutputFileParser();
 		private var result:String;
@@ -29,10 +31,12 @@ import flash.display.MovieClip;
 			addChild(loadFileBtn);
 			saveFileBtn = GraphicUtils.createBtn("Save to file", 5, 350);
 			addChild(saveFileBtn);
-			statusText = GraphicUtils.createTextField("Please, select file for parsing", 115, 5, 200, 20, false, false, false);
-			addChild(statusText);
-			resultText = GraphicUtils.createTextField("", 5, 30, 490, 315, true, true, true);
-			addChild(resultText);
+			copyBtn = GraphicUtils.createBtn("Copy to clipboard", 115, 350);
+			addChild(copyBtn);
+			statusTextField = GraphicUtils.createTextField("Please, select file for parsing", 115, 5, 200, 20, false, false, false);
+			addChild(statusTextField);
+			resultTextField = GraphicUtils.createTextField("", 5, 30, 490, 315, true, true, true);
+			addChild(resultTextField);
 		}
 
 		private function addListeners():void {
@@ -40,6 +44,7 @@ import flash.display.MovieClip;
 			outputFileParser.addEventListener(Event.CHANGE, changeStatusHandler);
 			loadFileBtn.addEventListener(MouseEvent.CLICK, clickLoadFileBtnHandler);
 			saveFileBtn.addEventListener(MouseEvent.CLICK, clickSaveFileBtnHandler);
+			copyBtn.addEventListener(MouseEvent.CLICK, clickCopyBtnHandler);
 		}
 
 		private function clickLoadFileBtnHandler(event:Event):void {
@@ -50,10 +55,14 @@ import flash.display.MovieClip;
 			outputFileParser.startProcessing(result);
 		}
 
+		private function clickCopyBtnHandler(event:Event):void {
+			System.setClipboard(result);
+		}
+
 		private function changeStatusHandler(event:Event):void {
-			statusText.text = event.target.status;
+			statusTextField.text = event.target.status;
 			result = inputFileParser.result;
-			resultText.text = formatTextForFlash(result);
+			resultTextField.text = formatTextForFlash(result);
 		}
 
 		private function formatTextForFlash(text:String):String {

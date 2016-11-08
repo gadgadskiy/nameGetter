@@ -89,6 +89,10 @@ import flash.events.Event;
 
 		private function urlLoadCompleteHandler(event:Event):void {
 			var pageContent:String = event.currentTarget.data;
+			if (pageContent.indexOf("msg_back_button") >= 0) {
+				updateUser(event.currentTarget.id, "user not found");
+				return;
+			}
 			var data:Array = pageContent.split("<title>");
 			var name:String = data[data.length - 1];
 			name = name.split(" |")[0];

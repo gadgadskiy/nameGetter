@@ -1,7 +1,8 @@
 package {
 	import file.InputFileParser;
+import file.OutputFileParser;
 
-	import flash.display.MovieClip;
+import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
@@ -15,6 +16,8 @@ package {
 		private var statusText:TextField;
 		private var resultText:TextField;
 		private var inputFileParser:InputFileParser = new InputFileParser();
+		private var outputFileParser:OutputFileParser = new OutputFileParser();
+		private var result:String;
 
 		public function Main() {
 			fillElements();
@@ -34,16 +37,30 @@ package {
 
 		private function addListeners():void {
 			inputFileParser.addEventListener(Event.CHANGE, changeStatusHandler);
+			outputFileParser.addEventListener(Event.CHANGE, changeStatusHandler);
 			loadFileBtn.addEventListener(MouseEvent.CLICK, clickLoadFileBtnHandler);
+			saveFileBtn.addEventListener(MouseEvent.CLICK, clickSaveFileBtnHandler);
 		}
 
 		private function clickLoadFileBtnHandler(event:Event):void {
 			inputFileParser.startProcessing();
 		}
 
+		private function clickSaveFileBtnHandler(event:Event):void {
+			outputFileParser.startProcessing(result);
+		}
+
 		private function changeStatusHandler(event:Event):void {
-			statusText.text = inputFileParser.status;
-			resultText.text = inputFileParser.result;
+			statusText.text = event.target.status;
+			result = inputFileParser.result;
+			resultText.text = formatTextForFlash(result);
+		}
+
+		private function formatTextForFlash(text:String):String {
+			while (text.indexOf("\r\n") >= 0) {
+				text = text.replace("\r\n", "\n");
+			}
+			return text;
 		}
 	}
 }

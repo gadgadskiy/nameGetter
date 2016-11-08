@@ -1,17 +1,14 @@
 package file {
-import dto.User;
+	import dto.User;
 
-import flash.events.Event;
-	import flash.events.EventDispatcher;
+	import flash.events.Event;
 	import flash.filesystem.File;
 	import flash.net.FileFilter;
 	import flash.utils.ByteArray;
 
-	public class InputFileParser extends EventDispatcher {
-		private static const DELIMITER_INPUT = "\r\n";
-		private static const DELIMITER_OUTPUT = "\n";
+	public class InputFileParser extends BaseFileParser {
+		private static const DELIMITER = "\r\n";
 		private var inputFile:File;
-		private var _status:String;
 		private var _result:String;
 		private var users:Vector.<User> = new Vector.<User>();
 		private var totalCount:uint;
@@ -26,28 +23,19 @@ import flash.events.Event;
 			inputFile.browseForOpen("Please, select file with ids", [new FileFilter("Documents", "*.txt")]);
 		}
 
-		public function get status():String {
-			return _status;
-		}
-
 		public function get result():String {
 			return _result;
 		}
 
-		private function updateStatus(status:String):void {
-			this._status = status;
-			dispatchEvent(new Event(Event.CHANGE));
-		}
-
 		private function selectInputFileHandler(event:Event):void {
-			updateStatus("Processing...");
+			updateStatus("Parsing data...");
 			inputFile.addEventListener(Event.COMPLETE, loadInputFileHandler, false, 0, true);
 			inputFile.load();
 		}
 
 		private function loadInputFileHandler(event:Event):void {
 			var resultText:String = event.currentTarget.data;
-			var ids:Array = resultText.split(DELIMITER_INPUT);
+			var ids:Array = resultText.split(DELIMITER);
 			if (validateInputData(ids)) {
 				parseData(ids);
 			}
@@ -113,13 +101,13 @@ import flash.events.Event;
 			currentCount++;
 			if (currentCount >= totalCount) {
 				createResultString();
-				updateStatus("Complete!");
+				updateStatus("Complete parsing!");
 			}
 		}
 
 		private function createResultString():void {
 			for each (var user:User in users) {
-				_result += user.data + DELIMITER_OUTPUT;
+				_result += user.data + DELIMITER;
 			}
 		}
 	}

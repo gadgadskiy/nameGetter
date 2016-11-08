@@ -2,7 +2,8 @@ package file {
 	import dto.User;
 
 	import flash.events.Event;
-	import flash.filesystem.File;
+import flash.events.IOErrorEvent;
+import flash.filesystem.File;
 	import flash.net.FileFilter;
 	import flash.utils.ByteArray;
 
@@ -30,7 +31,12 @@ package file {
 		private function selectInputFileHandler(event:Event):void {
 			updateStatus("Parsing data...");
 			inputFile.addEventListener(Event.COMPLETE, loadInputFileHandler, false, 0, true);
+			inputFile.addEventListener(IOErrorEvent.IO_ERROR, errorSelectInputFileHandler, false, 0, true)
 			inputFile.load();
+		}
+
+		private function errorSelectInputFileHandler(event:IOErrorEvent):void {
+			updateStatus("Error loading file");
 		}
 
 		private function loadInputFileHandler(event:Event):void {
@@ -54,6 +60,7 @@ package file {
 					break;
 				}
 			}
+			isCorrectData &&= length > 0;
 			if (!isCorrectData) {
 				updateStatus("File has incorrect data");
 			}

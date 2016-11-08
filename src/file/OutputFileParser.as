@@ -12,7 +12,7 @@ public class OutputFileParser extends BaseFileParser{
 
 		public function startProcessing(result:String):void {
 			if (!result || result == "") {
-				updateStatus("Nothing to save!");
+				updateStatus("Nothing to save");
 				return;
 			}
 			this.result = result;
@@ -24,10 +24,15 @@ public class OutputFileParser extends BaseFileParser{
 		private function selectOutputFileHandler(event:Event):void {
 			var file:File = File(event.target);
 			var fileStream:FileStream = new FileStream();
-			fileStream.open(file, FileMode.WRITE);
-			fileStream.writeUTFBytes(result);
-			updateStatus("File saved!");
-			fileStream.close();
+			try {
+				fileStream.open(file, FileMode.WRITE);
+				fileStream.writeUTFBytes(result);
+				updateStatus("File saved!");
+			} catch (error:Error) {
+				updateStatus("Error saving file");
+			} finally {
+				fileStream.close();
+			}
 		}
 	}
 }

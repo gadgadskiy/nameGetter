@@ -1,14 +1,14 @@
 package file {
-	import dto.User;
+	import data.Constants;
+	import data.User;
 
 	import flash.events.Event;
-import flash.events.IOErrorEvent;
-import flash.filesystem.File;
+	import flash.events.IOErrorEvent;
+	import flash.filesystem.File;
 	import flash.net.FileFilter;
 	import flash.utils.ByteArray;
 
 	public class InputFileParser extends BaseFileParser {
-		private static const DELIMITER = "\r\n";
 		private var inputFile:File;
 		private var _result:String;
 		private var users:Vector.<User> = new Vector.<User>();
@@ -41,7 +41,7 @@ import flash.filesystem.File;
 
 		private function loadInputFileHandler(event:Event):void {
 			var resultText:String = event.currentTarget.data;
-			var ids:Array = resultText.split(DELIMITER);
+			var ids:Array = resultText.split(Constants.DELIMITER_WINDOWS);
 			if (validateInputData(ids)) {
 				parseData(ids);
 			}
@@ -88,8 +88,8 @@ import flash.filesystem.File;
 				updateUser(event.currentTarget.id, "user not found");
 				return;
 			}
-			var data:Array = pageContent.split("<title>");
-			var name:String = data[data.length - 1];
+			var contentArray:Array = pageContent.split("<title>");
+			var name:String = contentArray[contentArray.length - 1];
 			name = name.split(" |")[0];
 			var ba:ByteArray = new ByteArray();
 			ba.writeMultiByte(name, "windows-1252");
@@ -114,7 +114,7 @@ import flash.filesystem.File;
 
 		private function createResultString():void {
 			for each (var user:User in users) {
-				_result += user.data + DELIMITER;
+				_result += user.data + Constants.DELIMITER_WINDOWS;
 			}
 		}
 	}

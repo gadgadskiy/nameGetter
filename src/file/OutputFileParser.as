@@ -1,11 +1,10 @@
 package file {
-import flash.events.Event;
-import flash.filesystem.File;
-import flash.filesystem.FileMode;
-import flash.filesystem.FileStream;
+	import flash.events.Event;
+	import flash.filesystem.File;
+	import flash.filesystem.FileMode;
+	import flash.filesystem.FileStream;
 
-public class OutputFileParser extends BaseFileParser{
-		private var outputFile:File;
+	public class OutputFileParser extends BaseFileParser{
 		private var result:String;
 
 		public function OutputFileParser() {}
@@ -16,7 +15,7 @@ public class OutputFileParser extends BaseFileParser{
 				return;
 			}
 			this.result = result;
-			outputFile = new File();
+			var outputFile:File = new File();
 			outputFile.addEventListener(Event.SELECT, selectOutputFileHandler, false, 0, true);
 			outputFile.browseForSave("Please, select file");
 		}

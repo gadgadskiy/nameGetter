@@ -1,4 +1,4 @@
-package dto {
+package data {
 	public class User {
 		private var _id:int;
 		private var _name:String = "";

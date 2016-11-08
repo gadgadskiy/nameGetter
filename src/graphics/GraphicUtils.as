@@ -1,10 +1,10 @@
 package graphics {
-import flash.display.MovieClip;
-import flash.text.TextField;
-import flash.text.TextFormat;
-import flash.text.TextFormatAlign;
+	import flash.display.MovieClip;
+	import flash.text.TextField;
+	import flash.text.TextFormat;
+	import flash.text.TextFormatAlign;
 
-public class GraphicUtils {
+	public class GraphicUtils {
 		public function GraphicUtils() {
 			throw new Error("static class");
 		}

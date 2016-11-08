@@ -1,13 +1,15 @@
 package {
-	import file.InputFileParser;
-import file.OutputFileParser;
+	import data.Constants;
 
-import flash.display.MovieClip;
+	import file.InputFileParser;
+	import file.OutputFileParser;
+
+	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
-import flash.system.System;
-import flash.text.TextField;
+	import flash.system.System;
+	import flash.text.TextField;
 
 	import graphics.GraphicUtils;
 
@@ -66,8 +68,8 @@ import flash.text.TextField;
 		}
 
 		private function formatTextForFlash(text:String):String {
-			while (text.indexOf("\r\n") >= 0) {
-				text = text.replace("\r\n", "\n");
+			while (text.indexOf(Constants.DELIMITER_WINDOWS) >= 0) {
+				text = text.replace(Constants.DELIMITER_WINDOWS, Constants.DELIMITER_FLASH);
 			}
 			return text;
 		}
